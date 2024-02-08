@@ -1,6 +1,7 @@
 import NewPost from "./NewPost";
 import classes from './PostsList.module.css';
 import Modal from './Modal';
+import Post from "./Post";
 
 import { useState } from 'react';
 
@@ -21,16 +22,18 @@ function PostsList(props) {
                     />
                 </Modal>
             }
-            <ul className={classes.posts}>
-                {posts.map((post, index) => (
-                    <li key={index}>
-                        <p>{post.text} says: </p>
-                        <div>
-                            <p>Author: {post.author}</p>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            {
+                posts.length === 0 && <p>No posts yet. Add one?</p>
+            }
+            {
+                posts.length > 0 &&
+                <ul className={classes.posts}>
+                    {posts.map((post, index) => (
+                        <Post key={index} author={post.author} body={post.text}></Post>
+                    ))}
+                </ul>
+            }
+
         </>
     );
 }
